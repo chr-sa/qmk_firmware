@@ -14,11 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "keymap_german.h"
+#include "oneshot.h"
 
 enum layers {
     _QWERTY = 0,
-    _DVORAK,
-    _COLEMAK_DH,
+    _DEIA,
+    _JUNGLE,
     _NAV,
     _NUM,
     _SYM,
@@ -26,11 +28,18 @@ enum layers {
     _ADJUST,
 };
 
+enum keycodes {
+    // Custom oneshot mod implementation with no timers.
+    OS_SFT = SAFE_RANGE,
+    OS_CTL,
+    OS_GUI,
+    OS_ALT,
+};
 
 // Aliases for readability
 #define QWERTY   DF(_QWERTY)
-#define COLEMAK  DF(_COLEMAK_DH)
-#define DVORAK   DF(_DVORAK)
+#define DEIA     DF(_DEIA)
+#define JUNGLE   DF(_JUNGLE)
 
 #define SYM      MO(_SYM)
 #define NAV      MO(_NAV)
@@ -38,10 +47,7 @@ enum layers {
 #define FKEYS    MO(_FUNCTION)
 #define ADJUST   MO(_ADJUST)
 
-#define CTL_ESC  MT(MOD_LCTL, KC_ESC)
-#define CTL_QUOT MT(MOD_RCTL, KC_QUOTE)
-#define CTL_MINS MT(MOD_RCTL, KC_MINUS)
-#define ALT_ENT  MT(MOD_LALT, KC_ENT)
+#define OSS      OSM(KC_LSFT)
 
 // clang-format off
 #define ALPHA_LAYOUT( \
@@ -52,46 +58,46 @@ enum layers {
       KC_NO, K00, K01, K02, K03, K04,                                      K05, K06, K07, K08, K09, KC_NO, \
       KC_NO, K10, K11, K12, K13, K14,                                      K15, K16, K17, K18, K19, KC_NO, \
       KC_NO, K20, K21, K22, K23, K24, _______,  _______, _______, _______, K25, K26, K27, K28, K29, KC_NO, \
-                ADJUST, KC_LGUI, NAV, OSM(KC_LSFT), SYM, KC_BSPC, KC_SPC, NUM, KC_RGUI, KC_APP \
+               ADJUST, KC_LGUI, NAV, OSS, SYM, KC_BSPC, KC_SPC, NUM, KC_RGUI, KC_APP \
     )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // Base Layer: QWERTY
-    [_QWERTY] = LAYOUT(
-     KC_TAB  , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,   KC_U ,  KC_I ,   KC_O ,  KC_P , KC_BSPC,
-     CTL_ESC , KC_A ,  KC_S   ,  KC_D  ,   KC_F ,   KC_G ,                                        KC_H,   KC_J ,  KC_K ,   KC_L ,KC_SCLN,CTL_QUOT,
-     KC_LSFT , KC_Z ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , KC_LBRC,KC_CAPS,     FKEYS  , KC_RBRC, KC_N,   KC_M ,KC_COMM, KC_DOT ,KC_SLSH, KC_RSFT,
-                                ADJUST , KC_LGUI, ALT_ENT, KC_SPC , NAV   ,     SYM    , KC_SPC ,KC_RALT, KC_RGUI, KC_APP
+    [_QWERTY] = ALPHA_LAYOUT(
+     DE_Q, DE_W, DE_E, DE_R, DE_T, DE_Z, DE_U, DE_I   , DE_O  , DE_P   ,
+     DE_A, DE_S, DE_D, DE_F, DE_G, DE_H, DE_J, DE_K   , DE_L  , DE_ODIA,
+     DE_Y, DE_X, DE_C, DE_V, DE_B, DE_N, DE_M, DE_COMM, DE_DOT, DE_MINS
     ),
 
-    // Base Layer: Dvorak
-    [_DVORAK] = LAYOUT(
-     KC_TAB  ,KC_QUOTE,KC_COMM,  KC_DOT,   KC_P ,   KC_Y ,                                        KC_F,   KC_G ,  KC_C ,   KC_R ,  KC_L , KC_BSPC,
-     CTL_ESC , KC_A ,  KC_O   ,  KC_E  ,   KC_U ,   KC_I ,                                        KC_D,   KC_H ,  KC_T ,   KC_N ,  KC_S , CTL_MINS,
-     KC_LSFT ,KC_SCLN, KC_Q   ,  KC_J  ,   KC_K ,   KC_X , KC_LBRC,KC_CAPS,     FKEYS  , KC_RBRC, KC_B,   KC_M ,  KC_W ,   KC_V ,  KC_Z , KC_RSFT,
-                                 ADJUST, KC_LGUI, ALT_ENT, KC_SPC , NAV   ,     SYM    , KC_SPC ,KC_RALT, KC_RGUI, KC_APP
+    // f l h w v p c o u /
+    // s r n t k y d e i a
+    // x j b m q z g ' , .
+    [_DEIA] = ALPHA_LAYOUT(
+     DE_F, DE_L, DE_H, DE_W, DE_V, DE_P, DE_C, DE_O   , DE_U   , DE_QUOT,
+     DE_S, DE_R, DE_N, DE_T, DE_K, DE_Y, DE_D, DE_E   , DE_I   , DE_A   ,
+     DE_X, DE_J, DE_B, DE_M, DE_Q, DE_Z, DE_G, DE_SLSH, DE_COMM, DE_DOT
     ),
 
-    // Base Layer: Colemak DH
-    [_COLEMAK_DH] = LAYOUT(
-     KC_TAB  , KC_Q ,  KC_W   ,  KC_F  ,   KC_P ,   KC_B ,                                        KC_J,   KC_L ,  KC_U ,   KC_Y ,KC_SCLN, KC_BSPC,
-     CTL_ESC , KC_A ,  KC_R   ,  KC_S  ,   KC_T ,   KC_G ,                                        KC_M,   KC_N ,  KC_E ,   KC_I ,  KC_O , CTL_QUOT,
-     KC_LSFT , KC_Z ,  KC_X   ,  KC_C  ,   KC_D ,   KC_V , KC_LBRC,KC_CAPS,     FKEYS  , KC_RBRC, KC_K,   KC_H ,KC_COMM, KC_DOT ,KC_SLSH, KC_RSFT,
-                                 ADJUST, KC_LGUI, ALT_ENT, KC_SPC , NAV   ,     SYM    , KC_SPC ,KC_RALT, KC_RGUI, KC_APP
+    // j g l c b  y u o z k
+    // r s n t p  , i e a h
+    // q w m d v  ; x ' . f
+    [_JUNGLE] = ALPHA_LAYOUT(
+     DE_J, DE_G, DE_L, DE_C, DE_B, DE_Y   , DE_U, DE_O   , DE_Z   , DE_K,
+     DE_R, DE_S, DE_N, DE_T, DE_P, DE_COMM, DE_I, DE_E   , DE_A   , DE_H   ,
+     DE_Q, DE_W, DE_M, DE_D, DE_V, DE_SLSH, DE_X, DE_QUOT, DE_DOT , DE_F
     ),
 
     [_NAV] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_VOLU, KC_DEL,
-      _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD, KC_INS,
-      _______, _______, _______, _______, _______, _______, _______, KC_SCRL, _______, _______,KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP  , KC_END , CW_TOGG, KC_NO,
+      _______, OS_SFT , OS_ALT , OS_GUI , OS_CTL , _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_TAB , KC_NO,
+      _______, _______, _______, _______, _______, _______, _______, KC_SCRL, _______, _______, KC_RGUI, KC_BSPC, KC_ESC , KC_TAB , KC_DEL , KC_NO,
+                                 _______, _______, _______, _______, _______, _______, KC_ENT, _______, _______, _______
     ),
 
     [_NUM] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_VOLU, KC_DEL,
-      _______, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_VOLD, KC_INS,
-      _______, _______, _______, _______, _______, _______, _______, KC_SCRL, _______, _______,KC_PAUSE, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_PSCR,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+      _______, DE_SLSH, DE_9, DE_8 ,DE_7 , DE_PLUS,                                     _______, _______, _______, _______, _______, _______,
+      _______, KC_ENT , DE_6, DE_5 ,DE_4 , DE_MINS,                                     _______, OS_CTL , OS_GUI , OS_ALT , OS_SFT , _______,
+      _______, DE_ASTR, DE_3, DE_2 ,DE_1 , DE_EQL , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, DE_0, _______, _______, _______, _______, _______, _______
     ),
 
     [_SYM] = LAYOUT(
@@ -103,15 +109,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FUNCTION] = LAYOUT(
       _______,  KC_F9 ,  KC_F10,  KC_F11,  KC_F12, _______,                                     _______, _______, _______, _______, _______, _______,
-      _______,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 , _______,                                     _______, KC_RSFT, KC_RCTL, KC_LALT, KC_RGUI, _______,
+      _______,  KC_F5 ,  KC_F6 ,  KC_F7 ,  KC_F8 , _______,                                     _______, OS_CTL , OS_GUI , OS_ALT , OS_SFT , _______,
       _______,  KC_F1 ,  KC_F2 ,  KC_F3 ,  KC_F4 , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
     [_ADJUST] = LAYOUT(
-      _______, _______, _______, QWERTY , _______, _______,                                    _______, _______, _______, _______,  _______, _______,
-      _______, _______, _______, DVORAK , _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, _______,
-      _______, _______, _______, COLEMAK, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
+      _______, _______, _______, QWERTY , AC_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
+      _______, _______, _______, DEIA   , CG_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
+      _______, _______, _______, JUNGLE , _______, _______,_______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -122,3 +128,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 //     ),
 };
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    return update_tri_layer_state(state, _NAV, _NUM, _SYM);
+}
+
+bool is_oneshot_cancel_key(uint16_t keycode) {
+    switch (keycode) {
+    case NUM:
+    case NAV:
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool is_oneshot_ignored_key(uint16_t keycode) {
+    switch (keycode) {
+    case SYM:
+    case NAV:
+    case KC_LSFT:
+    case OS_SFT:
+    case OS_CTL:
+    case OS_GUI:
+    case OS_ALT:
+        return true;
+    default:
+        return false;
+    }
+}
+
+oneshot_state os_sft_state = os_up_unqueued;
+oneshot_state os_ctl_state = os_up_unqueued;
+oneshot_state os_gui_state = os_up_unqueued;
+oneshot_state os_alt_state = os_up_unqueued;
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    update_oneshot(
+        &os_sft_state, KC_LSFT, OS_SFT,
+        keycode, record
+    );
+    update_oneshot(
+        &os_ctl_state, KC_LCTL, OS_CTL,
+        keycode, record
+    );
+    update_oneshot(
+        &os_gui_state, KC_LGUI, OS_GUI,
+        keycode, record
+    );
+    update_oneshot(
+        &os_alt_state, KC_LALT, OS_ALT,
+        keycode, record
+    );
+
+    return true;
+}
+
