@@ -18,7 +18,8 @@
 #include "oneshot.h"
 
 enum layers {
-    _QWERTY = 0,
+    _HEJ = 0,
+    _QWERTY,
     _DEIA,
     _JUNGLE,
     _NAV,
@@ -40,6 +41,7 @@ enum keycodes {
 #define QWERTY   DF(_QWERTY)
 #define DEIA     DF(_DEIA)
 #define JUNGLE   DF(_JUNGLE)
+#define HEJ      DF(_HEJ)
 
 #define SYM      MO(_SYM)
 #define NAV      MO(_NAV)
@@ -62,9 +64,23 @@ enum keycodes {
     )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    // Maybe d g swap back. There are for sure swaps possibel with lnm column, for example this:
+    // z w l c v k y o u ;
+    // s r n t g j h e i a
+    // f x m d p q b ' , .
+
+    // x l w c q  b k o u '
+    // s r n t g  y h e i a
+    // z j m d v  p f / , .
+    [_HEJ] = ALPHA_LAYOUT(
+     DE_X, DE_L, DE_W, DE_C, DE_Q, DE_B, DE_K, DE_O   , DE_U   , DE_QUOT,
+     DE_S, DE_R, DE_N, DE_T, DE_G, DE_Y, DE_H, DE_E   , DE_I   , DE_A   ,
+     DE_Z, DE_J, DE_M, DE_D, DE_V, DE_P, DE_F, DE_SLSH, DE_COMM, DE_DOT
+    ),
+
     [_QWERTY] = ALPHA_LAYOUT(
      DE_Q, DE_W, DE_E, DE_R, DE_T, DE_Z, DE_U, DE_I   , DE_O  , DE_P   ,
-     DE_A, DE_S, DE_D, DE_F, DE_G, DE_H, DE_J, DE_K   , DE_L  , DE_ODIA,
+     DE_A, DE_S, DE_D, DE_F, DE_G, DE_H, DE_J, DE_K   , DE_L  , DE_SLSH,
      DE_Y, DE_X, DE_C, DE_V, DE_B, DE_N, DE_M, DE_COMM, DE_DOT, DE_MINS
     ),
 
@@ -77,13 +93,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      DE_X, DE_J, DE_B, DE_M, DE_Q, DE_Z, DE_G, DE_SLSH, DE_COMM, DE_DOT
     ),
 
-    // j g l c b  y u o z k
-    // r s n t p  , i e a h
-    // q w m d v  ; x ' . f
+    // j g l c b  x u o z k
+    // r s n t p  y i e a h
+    // q w m d v  ; , ' . f
     [_JUNGLE] = ALPHA_LAYOUT(
-     DE_J, DE_G, DE_L, DE_C, DE_B, DE_Y   , DE_U, DE_O   , DE_Z   , DE_K,
-     DE_R, DE_S, DE_N, DE_T, DE_P, DE_COMM, DE_I, DE_E   , DE_A   , DE_H   ,
-     DE_Q, DE_W, DE_M, DE_D, DE_V, DE_SLSH, DE_X, DE_QUOT, DE_DOT , DE_F
+     DE_J, DE_G, DE_L, DE_C, DE_B, DE_X   , DE_U   , DE_O   , DE_Z   , DE_K,
+     DE_R, DE_S, DE_N, DE_T, DE_P, DE_Y   , DE_I   , DE_E   , DE_A   , DE_H   ,
+     DE_Q, DE_W, DE_M, DE_D, DE_V, DE_SLSH, DE_COMM, DE_QUOT, DE_DOT , DE_F
     ),
 
     [_NAV] = LAYOUT(
@@ -116,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_ADJUST] = LAYOUT(
       _______, _______, _______, QWERTY , AC_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
-      _______, _______, _______, DEIA   , CG_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
+      _______, _______, HEJ    , DEIA   , CG_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
       _______, _______, _______, JUNGLE , _______, _______,_______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
@@ -147,7 +163,7 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
     case SYM:
     case NAV:
-    case KC_LSFT:
+    // case KC_LSFT:
     case OS_SFT:
     case OS_CTL:
     case OS_GUI:
