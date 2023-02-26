@@ -84,13 +84,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      DE_Y, DE_X, DE_C, DE_V, DE_B, DE_N, DE_M, DE_COMM, DE_DOT, DE_MINS
     ),
 
-    // f l h w v p c o u /
+    // v l h w b p c o u /
     // s r n t k y d e i a
-    // x j b m q z g ' , .
+    // z x f m q j g ' , .
     [_DEIA] = ALPHA_LAYOUT(
-     DE_F, DE_L, DE_H, DE_W, DE_V, DE_P, DE_C, DE_O   , DE_U   , DE_QUOT,
+     DE_F, DE_L, DE_H, DE_W, DE_B, DE_P, DE_C, DE_O   , DE_U   , DE_QUOT,
      DE_S, DE_R, DE_N, DE_T, DE_K, DE_Y, DE_D, DE_E   , DE_I   , DE_A   ,
-     DE_X, DE_J, DE_B, DE_M, DE_Q, DE_Z, DE_G, DE_SLSH, DE_COMM, DE_DOT
+     DE_Z, DE_X, DE_F, DE_M, DE_Q, DE_J, DE_G, DE_SLSH, DE_COMM, DE_DOT
     ),
 
     // j g l c b  x u o z k
