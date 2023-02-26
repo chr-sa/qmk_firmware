@@ -18,9 +18,9 @@
 #include "oneshot.h"
 
 enum layers {
-    _HEJ = 0,
+    _DEIA = 0,
     _QWERTY,
-    _DEIA,
+    _HEJ,
     _JUNGLE,
     _NAV,
     _NUM,
@@ -64,6 +64,21 @@ enum keycodes {
     )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    // v l h w b p c o u /
+    // s r n t k y d e i a
+    // z x f m q j g ' , .
+    [_DEIA] = ALPHA_LAYOUT(
+     DE_F, DE_L, DE_H, DE_W, DE_B, DE_P, DE_C, DE_O   , DE_U   , DE_QUOT,
+     DE_S, DE_R, DE_N, DE_T, DE_K, DE_Y, DE_D, DE_E   , DE_I   , DE_A   ,
+     DE_Z, DE_X, DE_F, DE_M, DE_Q, DE_J, DE_G, DE_SLSH, DE_COMM, DE_DOT
+    ),    
+
+    [_QWERTY] = ALPHA_LAYOUT(
+     DE_Q, DE_W, DE_E, DE_R, DE_T, DE_Z, DE_U, DE_I   , DE_O  , DE_P   ,
+     DE_A, DE_S, DE_D, DE_F, DE_G, DE_H, DE_J, DE_K   , DE_L  , DE_SLSH,
+     DE_Y, DE_X, DE_C, DE_V, DE_B, DE_N, DE_M, DE_COMM, DE_DOT, DE_MINS
+    ),
+
     // Maybe d g swap back. There are for sure swaps possibel with lnm column, for example this:
     // z w l c v k y o u ;
     // s r n t g j h e i a
@@ -76,22 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      DE_X, DE_L, DE_W, DE_C, DE_Q, DE_B, DE_K, DE_O   , DE_U   , DE_QUOT,
      DE_S, DE_R, DE_N, DE_T, DE_G, DE_Y, DE_H, DE_E   , DE_I   , DE_A   ,
      DE_Z, DE_J, DE_M, DE_D, DE_V, DE_P, DE_F, DE_SLSH, DE_COMM, DE_DOT
-    ),
-
-    [_QWERTY] = ALPHA_LAYOUT(
-     DE_Q, DE_W, DE_E, DE_R, DE_T, DE_Z, DE_U, DE_I   , DE_O  , DE_P   ,
-     DE_A, DE_S, DE_D, DE_F, DE_G, DE_H, DE_J, DE_K   , DE_L  , DE_SLSH,
-     DE_Y, DE_X, DE_C, DE_V, DE_B, DE_N, DE_M, DE_COMM, DE_DOT, DE_MINS
-    ),
-
-    // v l h w b p c o u /
-    // s r n t k y d e i a
-    // z x f m q j g ' , .
-    [_DEIA] = ALPHA_LAYOUT(
-     DE_F, DE_L, DE_H, DE_W, DE_B, DE_P, DE_C, DE_O   , DE_U   , DE_QUOT,
-     DE_S, DE_R, DE_N, DE_T, DE_K, DE_Y, DE_D, DE_E   , DE_I   , DE_A   ,
-     DE_Z, DE_X, DE_F, DE_M, DE_Q, DE_J, DE_G, DE_SLSH, DE_COMM, DE_DOT
-    ),
+    ),    
 
     // j g l c b  x u o z k
     // r s n t p  y i e a h
