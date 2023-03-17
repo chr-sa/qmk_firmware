@@ -23,6 +23,7 @@ enum layers {
     _HEJ,
     _JUNGLE,
     _SNUG,
+    _CRTN,
     _NAV,
     _NUM,
     _SYM,
@@ -44,6 +45,7 @@ enum keycodes {
 #define JUNGLE   DF(_JUNGLE)
 #define HEJ      DF(_HEJ)
 #define SNUG      DF(_SNUG)
+#define CRTN      DF(_CRTN)
 
 #define SYM      MO(_SYM)
 #define NAV      MO(_NAV)
@@ -66,14 +68,14 @@ enum keycodes {
     )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // f l h m b  p c o u / 
-    // s r n t k  y d e i a 
+    // f l h m b  p c o u /
+    // s r n t k  y d e i a
     // x j q w v  z g ' , .
     [_DEIA] = ALPHA_LAYOUT(
      DE_F, DE_L, DE_H, DE_W, DE_B, DE_P, DE_C, DE_O   , DE_U   , DE_QUOT,
      DE_S, DE_R, DE_N, DE_T, DE_K, DE_Y, DE_D, DE_E   , DE_I   , DE_A   ,
      DE_X, DE_J, DE_Q, DE_M, DE_V, DE_Z, DE_G, DE_SLSH, DE_COMM, DE_DOT
-    ),    
+    ),
 
     [_QWERTY] = ALPHA_LAYOUT(
      DE_Q, DE_W, DE_E, DE_R, DE_T, DE_Z, DE_U, DE_I   , DE_O  , DE_P   ,
@@ -93,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      DE_X, DE_L, DE_W, DE_C, DE_Q, DE_B, DE_K, DE_O   , DE_U   , DE_QUOT,
      DE_S, DE_R, DE_N, DE_T, DE_G, DE_Y, DE_H, DE_E   , DE_I   , DE_A   ,
      DE_Z, DE_J, DE_M, DE_D, DE_V, DE_P, DE_F, DE_SLSH, DE_COMM, DE_DOT
-    ),    
+    ),
 
     // j g l c b  y u o z k
     // r s n t p  , i e a h
@@ -104,13 +106,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      DE_Q, DE_W, DE_M, DE_D, DE_V, DE_SLSH, DE_X, DE_QUOT, DE_DOT , DE_F
     ),
 
-    // q l d m b  y f o u ' 
-    // s r t c g  p n e i a 
+    // q l d m b  y f o u '
+    // s r t c g  p n e i a
     // z x k w v  j h / , .
     [_SNUG] = ALPHA_LAYOUT(
      DE_Q, DE_L, DE_D, DE_M, DE_B, DE_Y, DE_F, DE_O   , DE_U   , DE_QUOT,
      DE_S, DE_R, DE_T, DE_C, DE_G, DE_P, DE_N, DE_E   , DE_I   , DE_A   ,
      DE_Z, DE_X, DE_K, DE_W, DE_V, DE_J, DE_H, DE_SLSH, DE_COMM , DE_DOT
+    ),
+
+    // g l d v q f m o u /
+    // c r t n b y s e i a
+    // z j k h p x w ' , .
+    [_CRTN] = ALPHA_LAYOUT(
+     DE_G, DE_L, DE_D, DE_V, DE_Q, DE_F, DE_M, DE_O   , DE_U   , DE_QUOT,
+     DE_C, DE_R, DE_T, DE_N, DE_B, DE_Y, DE_S, DE_E   , DE_I   , DE_A   ,
+     DE_Z, DE_J, DE_K, DE_H, DE_P, DE_X, DE_W, DE_SLSH, DE_COMM, DE_DOT
     ),
 
     [_NAV] = LAYOUT(
@@ -144,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT(
       _______, _______, _______, QWERTY , AC_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
       _______, _______, HEJ    , DEIA   , CG_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
-      _______, _______, SNUG   , JUNGLE , _______, _______,_______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
+      _______, _______, SNUG   , CRTN   , _______, _______,_______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
 
