@@ -27,6 +27,9 @@ enum layers {
     _NAV,
     _NUM,
     _SYM,
+    _NAV_LS,
+    _NUM_LS,
+    _SYM_LS,
     _FUNCTION,
     _ADJUST,
 };
@@ -50,6 +53,9 @@ enum keycodes {
 #define SYM      MO(_SYM)
 #define NAV      MO(_NAV)
 #define NUM      MO(_NUM)
+#define SYM_LS   MO(_SYM_LS)
+#define NAV_LS   MO(_NAV_LS)
+#define NUM_LS   MO(_NUM_LS)
 #define FKEYS    MO(_FUNCTION)
 #define ADJUST   MO(_ADJUST)
 
@@ -67,14 +73,25 @@ enum keycodes {
                ADJUST, KC_LGUI, NAV, OSS, SYM, KC_BSPC, KC_SPC, NUM, KC_RGUI, KC_APP \
     )
 
+#define ALPHA_LAYOUT_LS( \
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, \
+    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, \
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29) \
+    LAYOUT( \
+      KC_NO, K00, K01, K02, K03, K04,                                      K05, K06, K07, K08, K09, KC_NO, \
+      KC_NO, K10, K11, K12, K13, K14,                                      K15, K16, K17, K18, K19, KC_NO, \
+      KC_NO, K20, K21, K22, K23, K24, _______,  _______, _______, _______, K25, K26, K27, K28, K29, KC_NO, \
+               ADJUST, KC_LGUI, NUM_LS, KC_SPC, KC_BSPC, SYM, OSS, NAV_LS, KC_RGUI, KC_APP \
+    )
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // f l h m b  p c o u /
     // s r n t k  y d e i a
     // x j q w v  z g ' , .
-    [_DEIA] = ALPHA_LAYOUT(
-     DE_F, DE_L, DE_H, DE_W, DE_B, DE_P, DE_C, DE_O   , DE_U   , DE_QUOT,
+    [_DEIA] = ALPHA_LAYOUT_LS(
+     DE_F, DE_L, DE_H, DE_M, DE_B, DE_P, DE_C, DE_O   , DE_U   , DE_QUOT,
      DE_S, DE_R, DE_N, DE_T, DE_K, DE_Y, DE_D, DE_E   , DE_I   , DE_A   ,
-     DE_X, DE_J, DE_Q, DE_M, DE_V, DE_Z, DE_G, DE_SLSH, DE_COMM, DE_DOT
+     DE_X, DE_J, DE_Q, DE_W, DE_V, DE_Z, DE_G, DE_SLSH, DE_COMM, DE_DOT
     ),
 
     [_QWERTY] = ALPHA_LAYOUT(
@@ -119,9 +136,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // c r t n b y s e i a
     // z j k h p x w ' , .
     [_CRTN] = ALPHA_LAYOUT(
-     DE_G, DE_L, DE_D, DE_V, DE_Q, DE_F, DE_M, DE_O   , DE_U   , DE_QUOT,
-     DE_C, DE_R, DE_T, DE_N, DE_B, DE_Y, DE_S, DE_E   , DE_I   , DE_A   ,
-     DE_Z, DE_J, DE_K, DE_H, DE_P, DE_X, DE_W, DE_SLSH, DE_COMM, DE_DOT
+     DE_G, DE_L, DE_D, DE_V, DE_Q, DE_K, DE_F, DE_O   , DE_U   , DE_QUOT,
+     DE_C, DE_R, DE_T, DE_N, DE_P, DE_Y, DE_S, DE_E   , DE_I   , DE_A   ,
+     DE_Z, DE_J, DE_M, DE_H, DE_B, DE_X, DE_W, DE_SLSH, DE_COMM, DE_DOT
     ),
 
     [_NAV] = LAYOUT(
@@ -143,6 +160,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TILD , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
      KC_PIPE , KC_BSLS, KC_COLN, KC_SCLN, KC_MINS, KC_LBRC, KC_LCBR, _______, _______, KC_RCBR, KC_RBRC, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [_NAV_LS] = LAYOUT(
+      _______, CW_TOGG, KC_END , KC_UP  , KC_HOME, KC_PGUP,                                     _______, _______, _______, _______, _______, _______,
+      _______, KC_TAB , KC_RGHT, KC_DOWN, KC_LEFT, KC_PGDN,                                     _______, OS_CTL , OS_GUI , OS_ALT , OS_SFT , _______,
+      _______, KC_DEL , KC_TAB , KC_ESC , KC_BSPC, KC_RGUI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______, KC_ENT, _______, _______, _______, _______, _______, _______
+    ),
+
+    [_NUM_LS] = LAYOUT(
+      _______, _______, _______, _______, _______, _______,                                     DE_PLUS, DE_7, DE_8, DE_9, DE_SLSH, _______,
+      _______, OS_SFT , OS_ALT , OS_GUI , OS_CTL , _______,                                     DE_MINS, DE_4, DE_5, DE_6, KC_ENT , _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DE_EQL , DE_1, DE_2, DE_3, DE_ASTR, _______,
+                                 _______, _______, _______, _______, _______, _______, DE_0, _______, _______, _______
     ),
 
     [_FUNCTION] = LAYOUT(
@@ -185,6 +216,10 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     switch (keycode) {
     case SYM:
     case NAV:
+    case NUM:
+    case SYM_LS:
+    case NAV_LS:
+    case NUM_LS:
     // case KC_LSFT:
     case OS_SFT:
     case OS_CTL:
