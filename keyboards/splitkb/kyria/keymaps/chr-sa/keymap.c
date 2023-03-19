@@ -18,12 +18,12 @@
 #include "oneshot.h"
 
 enum layers {
-    _DEIA = 0,
+    _CRTN = 0,
+    _DEIA,
     _QWERTY,
     _HEJ,
     _JUNGLE,
     _SNUG,
-    _CRTN,
     _NAV,
     _NUM,
     _SYM,
@@ -47,8 +47,8 @@ enum keycodes {
 #define DEIA     DF(_DEIA)
 #define JUNGLE   DF(_JUNGLE)
 #define HEJ      DF(_HEJ)
-#define SNUG      DF(_SNUG)
-#define CRTN      DF(_CRTN)
+#define SNUG     DF(_SNUG)
+#define CRTN     DF(_CRTN)
 
 #define SYM      MO(_SYM)
 #define NAV      MO(_NAV)
@@ -59,7 +59,7 @@ enum keycodes {
 #define FKEYS    MO(_FUNCTION)
 #define ADJUST   MO(_ADJUST)
 
-#define OSS      OSM(KC_LSFT)
+#define OSS      OSM(MOD_LSFT)
 
 // clang-format off
 #define ALPHA_LAYOUT( \
@@ -85,6 +85,15 @@ enum keycodes {
     )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    // g l d v q f m o u /
+    // c r t n b y s e i a
+    // z j k h p x w ' , .
+    [_CRTN] = ALPHA_LAYOUT_LS(
+     DE_G, DE_L, DE_D, DE_V, DE_Q, DE_K, DE_F, DE_O   , DE_U   , DE_QUOT,
+     DE_C, DE_R, DE_T, DE_N, DE_P, DE_Y, DE_S, DE_E   , DE_I   , DE_A   ,
+     DE_Z, DE_J, DE_M, DE_H, DE_B, DE_X, DE_W, DE_SLSH, DE_COMM, DE_DOT
+    ),
+
     // f l h m b  p c o u /
     // s r n t k  y d e i a
     // x j q w v  z g ' , .
@@ -132,14 +141,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      DE_Z, DE_X, DE_K, DE_W, DE_V, DE_J, DE_H, DE_SLSH, DE_COMM , DE_DOT
     ),
 
-    // g l d v q f m o u /
-    // c r t n b y s e i a
-    // z j k h p x w ' , .
-    [_CRTN] = ALPHA_LAYOUT(
-     DE_G, DE_L, DE_D, DE_V, DE_Q, DE_K, DE_F, DE_O   , DE_U   , DE_QUOT,
-     DE_C, DE_R, DE_T, DE_N, DE_P, DE_Y, DE_S, DE_E   , DE_I   , DE_A   ,
-     DE_Z, DE_J, DE_M, DE_H, DE_B, DE_X, DE_W, DE_SLSH, DE_COMM, DE_DOT
-    ),
 
     [_NAV] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP  , KC_END , CW_TOGG, KC_NO,
@@ -164,7 +165,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV_LS] = LAYOUT(
       _______, CW_TOGG, KC_END , KC_UP  , KC_HOME, KC_PGUP,                                     _______, _______, _______, _______, _______, _______,
-      _______, KC_TAB , KC_RGHT, KC_DOWN, KC_LEFT, KC_PGDN,                                     _______, OS_CTL , OS_GUI , OS_ALT , OS_SFT , _______,
+      _______, KC_TAB , KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     _______, OS_CTL , OS_GUI , OS_ALT , OS_SFT , _______,
       _______, KC_DEL , KC_TAB , KC_ESC , KC_BSPC, KC_RGUI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, KC_ENT, _______, _______, _______, _______, _______, _______
     ),
