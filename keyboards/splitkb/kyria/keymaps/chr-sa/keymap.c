@@ -19,17 +19,10 @@
 
 enum layers {
     _CRTN = 0,
-    _DEIA,
     _QWERTY,
-    _HEJ,
-    _JUNGLE,
-    _SNUG,
     _NAV,
     _NUM,
     _SYM,
-    _NAV_LS,
-    _NUM_LS,
-    _SYM_LS,
     _FUNCTION,
     _ADJUST,
 };
@@ -44,10 +37,6 @@ enum keycodes {
 
 // Aliases for readability
 #define QWERTY   DF(_QWERTY)
-#define DEIA     DF(_DEIA)
-#define JUNGLE   DF(_JUNGLE)
-#define HEJ      DF(_HEJ)
-#define SNUG     DF(_SNUG)
 #define CRTN     DF(_CRTN)
 
 #define SYM      MO(_SYM)
@@ -70,37 +59,17 @@ enum keycodes {
       KC_NO, K00, K01, K02, K03, K04,                                      K05, K06, K07, K08, K09, KC_NO, \
       KC_NO, K10, K11, K12, K13, K14,                                      K15, K16, K17, K18, K19, KC_NO, \
       KC_NO, K20, K21, K22, K23, K24, _______,  _______, _______, _______, K25, K26, K27, K28, K29, KC_NO, \
-               ADJUST, KC_LGUI, NAV, OSS, SYM, KC_BSPC, KC_SPC, NUM, KC_RGUI, KC_APP \
-    )
-
-#define ALPHA_LAYOUT_LS( \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, \
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29) \
-    LAYOUT( \
-      KC_NO, K00, K01, K02, K03, K04,                                      K05, K06, K07, K08, K09, KC_NO, \
-      KC_NO, K10, K11, K12, K13, K14,                                      K15, K16, K17, K18, K19, KC_NO, \
-      KC_NO, K20, K21, K22, K23, K24, _______,  _______, _______, _______, K25, K26, K27, K28, K29, KC_NO, \
-               ADJUST, KC_LGUI, NUM_LS, KC_SPC, KC_BSPC, SYM, OSS, NAV_LS, KC_RGUI, KC_APP \
+                  ADJUST, KC_LGUI, NUM, KC_SPC, KC_BSPC, SYM, OSS, NAV, KC_RGUI, KC_APP \
     )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // g l d v q f m o u /
     // c r t n b y s e i a
     // z j k h p x w ' , .
-    [_CRTN] = ALPHA_LAYOUT_LS(
+    [_CRTN] = ALPHA_LAYOUT(
      DE_G, DE_L, DE_D, DE_V, DE_Q, DE_K, DE_F, DE_O   , DE_U   , DE_QUOT,
      DE_C, DE_R, DE_T, DE_N, DE_P, DE_Y, DE_S, DE_E   , DE_I   , DE_A   ,
      DE_Z, DE_J, DE_M, DE_H, DE_B, DE_X, DE_W, DE_SLSH, DE_COMM, DE_DOT
-    ),
-
-    // f l h m b  p c o u /
-    // s r n t k  y d e i a
-    // x j q w v  z g ' , .
-    [_DEIA] = ALPHA_LAYOUT_LS(
-     DE_F, DE_L, DE_H, DE_M, DE_B, DE_P, DE_C, DE_O   , DE_U   , DE_QUOT,
-     DE_S, DE_R, DE_N, DE_T, DE_K, DE_Y, DE_D, DE_E   , DE_I   , DE_A   ,
-     DE_X, DE_J, DE_Q, DE_W, DE_V, DE_Z, DE_G, DE_SLSH, DE_COMM, DE_DOT
     ),
 
     [_QWERTY] = ALPHA_LAYOUT(
@@ -109,72 +78,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      DE_Y, DE_X, DE_C, DE_V, DE_B, DE_N, DE_M, DE_COMM, DE_DOT, DE_MINS
     ),
 
-    // Maybe d g swap back. There are for sure swaps possibel with lnm column, for example this:
-    // z w l c v k y o u ;
-    // s r n t g j h e i a
-    // f x m d p q b ' , .
-
-    // x l w c q  b k o u '
-    // s r n t g  y h e i a
-    // z j m d v  p f / , .
-    [_HEJ] = ALPHA_LAYOUT(
-     DE_X, DE_L, DE_W, DE_C, DE_Q, DE_B, DE_K, DE_O   , DE_U   , DE_QUOT,
-     DE_S, DE_R, DE_N, DE_T, DE_G, DE_Y, DE_H, DE_E   , DE_I   , DE_A   ,
-     DE_Z, DE_J, DE_M, DE_D, DE_V, DE_P, DE_F, DE_SLSH, DE_COMM, DE_DOT
-    ),
-
-    // j g l c b  y u o z k
-    // r s n t p  , i e a h
-    // q w m d v  / x ' . f
-    [_JUNGLE] = ALPHA_LAYOUT(
-     DE_J, DE_G, DE_L, DE_C, DE_B, DE_Y   , DE_U, DE_O   , DE_Z   , DE_K,
-     DE_R, DE_S, DE_N, DE_T, DE_P, DE_COMM, DE_I, DE_E   , DE_A   , DE_H   ,
-     DE_Q, DE_W, DE_M, DE_D, DE_V, DE_SLSH, DE_X, DE_QUOT, DE_DOT , DE_F
-    ),
-
-    // q l d m b  y f o u '
-    // s r t c g  p n e i a
-    // z x k w v  j h / , .
-    [_SNUG] = ALPHA_LAYOUT(
-     DE_Q, DE_L, DE_D, DE_M, DE_B, DE_Y, DE_F, DE_O   , DE_U   , DE_QUOT,
-     DE_S, DE_R, DE_T, DE_C, DE_G, DE_P, DE_N, DE_E   , DE_I   , DE_A   ,
-     DE_Z, DE_X, DE_K, DE_W, DE_V, DE_J, DE_H, DE_SLSH, DE_COMM , DE_DOT
-    ),
-
-
     [_NAV] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP  , KC_END , CW_TOGG, KC_NO,
-      _______, OS_SFT , OS_ALT , OS_GUI , OS_CTL , _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_TAB , KC_NO,
-      _______, _______, _______, _______, _______, _______, _______, KC_SCRL, _______, _______, KC_RGUI, KC_BSPC, KC_ESC , KC_TAB , KC_DEL , KC_NO,
-                                 _______, _______, _______, _______, _______, _______, KC_ENT, _______, _______, _______
-    ),
-
-    [_NUM] = LAYOUT(
-      _______, DE_SLSH, DE_9, DE_8 ,DE_7 , DE_PLUS,                                     _______, _______, _______, _______, _______, _______,
-      _______, KC_ENT , DE_6, DE_5 ,DE_4 , DE_MINS,                                     _______, OS_CTL , OS_GUI , OS_ALT , OS_SFT , _______,
-      _______, DE_ASTR, DE_3, DE_2 ,DE_1 , DE_EQL , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, DE_0, _______, _______, _______, _______, _______, _______
-    ),
-
-    [_SYM] = LAYOUT(
-     _______ , DE_DEG , DE_PLUS, DE_LCBR, DE_RCBR, DE_AT  ,                                     DE_GRV , DE_TILD ,DE_PIPE,   KC_9 ,   KC_0 , _______,
-     _______ , DE_CIRC, DE_EQL , DE_LPRN, DE_RPRN, KC_PERC,                                     KC_CIRC, DE_SLSH, DE_BSLS, DE_HASH, DE_DLR , _______,
-     _______ , DE_PERC, DE_MINS, DE_LBRC, DE_LBRC, KC_AMPR, _______, _______, _______, _______, DE_ACUT, DE_LABK, DE_RABK, DE_QUES, DE_EXLM, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
-
-    [_NAV_LS] = LAYOUT(
       _______, CW_TOGG, KC_END , KC_UP  , KC_HOME, KC_PGUP,                                     _______, _______, _______, _______, _______, _______,
       _______, KC_TAB , KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     _______, OS_CTL , OS_GUI , OS_ALT , OS_SFT , _______,
       _______, KC_DEL , KC_TAB , KC_ESC , KC_BSPC, KC_RGUI, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, KC_ENT, _______, _______, _______, _______, _______, _______
     ),
 
-    [_NUM_LS] = LAYOUT(
+    [_NUM] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     DE_PLUS, DE_7, DE_8, DE_9, DE_SLSH, _______,
       _______, OS_SFT , OS_ALT , OS_GUI , OS_CTL , _______,                                     DE_MINS, DE_4, DE_5, DE_6, KC_ENT , _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DE_EQL , DE_1, DE_2, DE_3, DE_ASTR, _______,
                                  _______, _______, _______, _______, _______, _______, DE_0, _______, _______, _______
+    ),
+
+    [_SYM] = LAYOUT(
+     _______ , DE_DEG , DE_PLUS, DE_LCBR, DE_RCBR, DE_AT  ,                                     DE_ACUT, DE_LABK, DE_RABK,   KC_9 ,   KC_0 , _______,
+     _______ , DE_CIRC, DE_EQL , DE_LPRN, DE_RPRN, KC_PERC,                                     KC_CIRC, DE_SLSH, DE_BSLS, DE_HASH, DE_DLR , _______,
+     _______ , DE_PERC, DE_MINS, DE_LBRC, DE_RBRC, KC_AMPR, _______, _______, _______, _______, DE_GRV , DE_TILD, DE_PIPE, DE_QUES, DE_EXLM, _______,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
     [_FUNCTION] = LAYOUT(
@@ -186,8 +108,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_ADJUST] = LAYOUT(
       _______, _______, _______, QWERTY , AC_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
-      _______, _______, HEJ    , DEIA   , CG_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
-      _______, _______, SNUG   , CRTN   , _______, _______,_______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
+      _______, _______, _______, CRTN   , CG_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
+      _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -199,9 +121,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, _NAV, _NUM, _SYM);
-}
+// layer_state_t layer_state_set_user(layer_state_t state) {
+//     return update_tri_layer_state(state, _NAV, _NUM, _SYM);
+// }
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
@@ -218,10 +140,6 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     case SYM:
     case NAV:
     case NUM:
-    case SYM_LS:
-    case NAV_LS:
-    case NUM_LS:
-    // case KC_LSFT:
     case OS_SFT:
     case OS_CTL:
     case OS_GUI:
