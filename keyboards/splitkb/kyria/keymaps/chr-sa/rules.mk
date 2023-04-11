@@ -4,3 +4,5 @@ RGB_MATRIX_ENABLE = no     # Disable keyboard RGB matrix, as it is enabled by de
 RGBLIGHT_ENABLE = no       # Enable keyboard RGB underglow
 CAPS_WORD_ENABLE = yes
 SRC += oneshot.c
+
+KEY_OVERRIDE_ENABLE = yes
