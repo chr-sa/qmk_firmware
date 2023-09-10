@@ -1,18 +1,3 @@
-/* Copyright 2019 Thomas Baart <thomas@splitkb.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 #include QMK_KEYBOARD_H
 #include "keymap_german.h"
 #include "oneshot.h"
@@ -33,6 +18,8 @@ enum keycodes {
     OS_CTL,
     OS_GUI,
     OS_ALT,
+    NUM,
+    NAV,
 };
 
 // Aliases for readability
@@ -42,11 +29,14 @@ enum keycodes {
 #define SYM      MO(_SYM)
 #define NAV      MO(_NAV)
 #define NUM      MO(_NUM)
-#define SYM_LS   MO(_SYM_LS)
-#define NAV_LS   MO(_NAV_LS)
-#define NUM_LS   MO(_NUM_LS)
+
 #define FKEYS    MO(_FUNCTION)
 #define ADJUST   MO(_ADJUST)
+
+#define COPY     C(DE_C)
+#define PASTE    C(DE_V)
+#define CUT      C(DE_X)
+#define UNDO     C(DE_Z)
 
 #define OSS      OSM(MOD_LSFT)
 
@@ -79,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_NAV] = LAYOUT(
-      _______, CW_TOGG, KC_END , KC_UP  , KC_HOME, KC_PGUP,                                     _______, DE_SS  , DE_ODIA, DE_UDIA, _______, _______,
+      _______, CW_TOGG, KC_HOME, KC_UP  , KC_END , KC_PGUP,                                     _______, DE_SS  , DE_ODIA, DE_UDIA, DE_ADIA, _______,
       _______, KC_TAB , KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     _______, OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
       _______, KC_DEL , KC_TAB , KC_ESC , KC_BSPC, KC_RGUI, _______, _______, _______, _______, _______, DE_ADIA, _______, _______, _______, _______,
                                   _______, _______, _______, KC_ENT, _______, _______, _______, _______, _______, _______
@@ -88,14 +78,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NUM] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     DE_PLUS, DE_7, DE_8, DE_9, DE_SLSH, _______,
       _______, OS_GUI , OS_ALT , OS_SFT , OS_CTL , _______,                                     DE_MINS, DE_4, DE_5, DE_6, KC_ENT , _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DE_EQL , DE_1, DE_2, DE_3, DE_ASTR, _______,
+      _______, UNDO   , CUT    , COPY   , PASTE  , _______, _______, _______, _______, _______, DE_EQL , DE_1, DE_2, DE_3, DE_ASTR, _______,
                                  _______, _______, _______, _______, _______, _______, DE_0, _______, _______, _______
     ),
 
     [_SYM] = LAYOUT(
-     _______ , DE_DEG , DE_PLUS, DE_LCBR, DE_RCBR, DE_AT  ,                                     DE_ACUT, DE_LABK, DE_RABK,   KC_9 ,   KC_0 , _______,
-     _______ , DE_CIRC, DE_EQL , DE_LPRN, DE_RPRN, KC_PERC,                                     KC_CIRC, DE_SLSH, DE_BSLS, DE_HASH, DE_DLR , _______,
-     _______ , DE_PERC, DE_MINS, DE_LBRC, DE_RBRC, KC_AMPR, _______, _______, _______, _______, DE_GRV , DE_TILD, DE_PIPE, DE_QUES, DE_EXLM, _______,
+     _______ , DE_DEG , DE_PLUS, DE_LCBR, DE_RCBR, DE_AT  ,                                     DE_ACUT, DE_LABK, DE_RABK, DE_SECT, DE_EURO, _______,
+     _______ , DE_CIRC, DE_EQL , DE_LPRN, DE_RPRN, DE_PERC,                                     KC_CIRC, DE_SLSH, DE_BSLS, DE_HASH, DE_DLR , _______,
+     _______ , DE_ASTR, DE_MINS, DE_LBRC, DE_RBRC, DE_AMPR, _______, _______, _______, _______, DE_GRV , DE_TILD, DE_PIPE, DE_QUES, DE_EXLM, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -121,9 +111,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
-// layer_state_t layer_state_set_user(layer_state_t state) {
-//     return update_tri_layer_state(state, _NAV, _NUM, _SYM);
-// }
+/* layer_state_t layer_state_set_user(layer_state_t state) { */
+/*     return update_tri_layer_state(state, _NAV, _NUM, _SYM); */
+/* } */
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
@@ -172,6 +162,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         &os_alt_state, KC_LALT, OS_ALT,
         keycode, record
     );
+
+    switch (keycode) {
+      case NAV:
+        if (record->event.pressed) {
+      	  layer_on(_NAV);
+      	  update_tri_layer(_NAV, _NUM, _SYM);
+        } else {
+      	  layer_off(_NAV);
+      	  update_tri_layer(_NAV, _NUM, _SYM);
+        }
+        return false;
+	break;
+      case NUM:
+        if (record->event.pressed) {
+      	  layer_on(_NUM);
+      	  update_tri_layer(_NAV, _NUM, _SYM);
+        } else {
+      	  layer_off(_NUM);
+      	  update_tri_layer(_NAV, _NUM, _SYM);
+        }
+        return false;
+	break;
+      }
 
     return true;
 }
