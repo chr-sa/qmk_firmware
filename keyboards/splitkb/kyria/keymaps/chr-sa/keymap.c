@@ -5,6 +5,7 @@
 enum layers {
     _CRTN = 0,
     _QWERTY,
+    _AOE,
     _NAV,
     _NUM,
     _SYM,
@@ -23,8 +24,9 @@ enum keycodes {
 };
 
 // Aliases for readability
-#define QWERTY   DF(_QWERTY)
 #define CRTN     DF(_CRTN)
+#define QWERTY   DF(_QWERTY)
+#define AOE      DF(_AOE)
 
 #define SYM      MO(_SYM)
 #define NAV      MO(_NAV)
@@ -46,9 +48,9 @@ enum keycodes {
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29) \
     LAYOUT( \
-      KC_NO, K00, K01, K02, K03, K04,                                      K05, K06, K07, K08, K09, KC_NO, \
-      KC_NO, K10, K11, K12, K13, K14,                                      K15, K16, K17, K18, K19, KC_NO, \
-      KC_NO, K20, K21, K22, K23, K24, _______,  _______, _______, _______, K25, K26, K27, K28, K29, KC_NO, \
+      KC_TAB , K00, K01, K02, K03, K04,                                        K05, K06, K07, K08, K09, KC_NO, \
+      KC_LCTL, K10, K11, K12, K13, K14,                                        K15, K16, K17, K18, K19, KC_NO, \
+      KC_LSFT, K20, K21, K22, K23, K24, TG(_NAV),  _______, _______, TG(_NUM), K25, K26, K27, K28, K29, KC_NO, \
                   ADJUST, KC_LGUI, NUM, KC_SPC, KC_BSPC, SYM, OSS, NAV, KC_RGUI, KC_APP \
     )
 
@@ -68,17 +70,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      DE_Y, DE_X, DE_C, DE_V, DE_B, DE_N, DE_M, DE_COMM, DE_DOT, DE_MINS
     ),
 
+    [_AOE] = ALPHA_LAYOUT(
+     DE_Q, DE_W, DE_E, DE_R, DE_T, DE_Z, DE_U, DE_I   , DE_O  , DE_P   ,
+     DE_A, DE_S, DE_D, DE_F, DE_G, DE_H, DE_J, DE_K   , DE_L  , DE_SLSH,
+     DE_Y, DE_X, DE_C, DE_V, DE_B, DE_N, DE_M, DE_COMM, DE_DOT, DE_MINS
+    ),
+
     [_NAV] = LAYOUT(
-      _______, CW_TOGG, KC_HOME, KC_UP  , KC_END , KC_PGUP,                                     _______, DE_SS  , DE_ODIA, DE_UDIA, DE_ADIA, _______,
-      _______, KC_TAB , KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     _______, OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
-      _______, KC_DEL , KC_TAB , KC_ESC , KC_BSPC, KC_RGUI, _______, _______, _______, _______, _______, DE_ADIA, _______, _______, _______, _______,
-                                  _______, _______, _______, KC_ENT, _______, _______, _______, _______, _______, _______
+      _______, CW_TOGG, KC_HOME, KC_UP  , KC_END , KC_PGUP,                                      DE_PLUS, DE_SS  , DE_ODIA, DE_UDIA, DE_ADIA, _______,
+      _______, KC_TAB , KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                      DE_EQL , OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
+      _______, KC_DEL , KC_TAB , KC_ESC , KC_BSPC, KC_RGUI, TG(_NUM), _______, _______, _______, DE_MINS, DE_ADIA, DE_HASH, DE_QUES, DE_EXLM, _______,
+                                  _______, _______, _______, KC_ENT, QK_REP  , _______, _______, _______, _______, _______
     ),
 
     [_NUM] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     DE_PLUS, DE_7, DE_8, DE_9, DE_SLSH, _______,
-      _______, OS_GUI , OS_ALT , OS_SFT , OS_CTL , _______,                                     DE_MINS, DE_4, DE_5, DE_6, KC_ENT , _______,
-      _______, UNDO   , CUT    , COPY   , PASTE  , _______, _______, _______, _______, _______, DE_EQL , DE_1, DE_2, DE_3, DE_ASTR, _______,
+      _______, _______, _______, _______, _______, _______,                                      DE_PLUS, DE_7, DE_8, DE_9, DE_SLSH, _______,
+      _______, OS_GUI , OS_ALT , OS_SFT , OS_CTL , _______,                                      DE_MINS, DE_4, DE_5, DE_6, KC_ENT , _______,
+      _______, UNDO   , CUT    , COPY   , PASTE  , _______, _______, _______, _______, TG(_NUM), DE_EQL , DE_1, DE_2, DE_3, DE_ASTR, _______,
                                  _______, _______, _______, _______, _______, _______, DE_0, _______, _______, _______
     ),
 
@@ -97,8 +105,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_ADJUST] = LAYOUT(
-      _______, _______, _______, QWERTY , AC_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
-      _______, _______, _______, CRTN   , CG_TOGG, _______,                                    _______, _______, _______, _______,  _______, _______,
+      _______, _______, _______, _______, _______, _______,                                    _______, _______, _______, _______,  _______, _______,
+      _______, _______, _______,  QWERTY , CRTN   , _______,                                    _______, CG_TOGG, _______, AC_TOGG,  _______, _______,
       _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
