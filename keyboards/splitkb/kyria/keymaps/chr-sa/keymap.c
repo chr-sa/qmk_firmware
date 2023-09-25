@@ -5,10 +5,9 @@
 enum layers {
     _CRTN = 0,
     _QWERTY,
-    _AOE,
     _NAV,
-    _NUM,
     _SYM,
+    _NUM,
     _FUNCTION,
     _ADJUST,
 };
@@ -19,14 +18,14 @@ enum keycodes {
     OS_CTL,
     OS_GUI,
     OS_ALT,
-    NUM,
+    SYM,
     NAV,
+    NUM,
 };
 
 // Aliases for readability
 #define CRTN     DF(_CRTN)
 #define QWERTY   DF(_QWERTY)
-#define AOE      DF(_AOE)
 
 #define SYM      MO(_SYM)
 #define NAV      MO(_NAV)
@@ -49,10 +48,10 @@ enum keycodes {
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29) \
     LAYOUT( \
-      KC_TAB , K00, K01, K02, K03, K04,                                        K05, K06, K07, K08, K09, KC_NO, \
-      KC_LCTL, K10, K11, K12, K13, K14,                                        K15, K16, K17, K18, K19, KC_NO, \
-      KC_LSFT, K20, K21, K22, K23, K24, TG(_NAV),  _______, _______, TG(_NUM), K25, K26, K27, K28, K29, KC_NO, \
-                  ADJUST, KC_LGUI, NUM, KC_SPC, DELBS, SYM, OSS, NAV, KC_RGUI, KC_APP \
+      KC_TAB , K00, K01, K02, K03, K04,                                      K05, K06, K07, K08, K09, KC_BSPC, \
+      KC_ESC , K10, K11, K12, K13, K14,                                      K15, K16, K17, K18, K19, KC_ENT , \
+      KC_LSFT, K20, K21, K22, K23, K24, _______,  _______, _______, _______, K25, K26, K27, K28, K29, KC_RSFT, \
+                    ADJUST, KC_LGUI, NAV, KC_SPC, KC_BSPC, NUM, OSS, SYM, KC_RGUI, KC_APP \
     )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -71,30 +70,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      DE_Y, DE_X, DE_C, DE_V, DE_B, DE_N, DE_M, DE_COMM, DE_DOT, DE_MINS
     ),
 
-    [_AOE] = ALPHA_LAYOUT(
-     DE_Q, DE_W, DE_E, DE_R, DE_T, DE_Z, DE_U, DE_I   , DE_O  , DE_P   ,
-     DE_A, DE_S, DE_D, DE_F, DE_G, DE_H, DE_J, DE_K   , DE_L  , DE_SLSH,
-     DE_Y, DE_X, DE_C, DE_V, DE_B, DE_N, DE_M, DE_COMM, DE_DOT, DE_MINS
-    ),
-
     [_NAV] = LAYOUT(
-      _______, CW_TOGG, KC_HOME, KC_UP  , KC_END , KC_PGUP,                                      DE_PLUS, DE_SS  , DE_ODIA, DE_UDIA, DE_ADIA, _______,
-      _______, KC_TAB , KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                      DE_EQL , OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
-      _______, KC_DEL , KC_TAB , KC_ESC , KC_BSPC, KC_RGUI, TG(_NAV), _______, _______, _______, DE_MINS, DE_ADIA, DE_HASH, DE_QUES, DE_EXLM, _______,
-                                  _______, _______, _______, KC_ENT , QK_REP  , _______, _______, _______, _______, _______
-    ),
-
-    [_NUM] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                      DE_PLUS, DE_7, DE_8, DE_9, DE_SLSH, _______,
-      _______, OS_GUI , OS_ALT , OS_SFT , OS_CTL , _______,                                      DE_MINS, DE_4, DE_5, DE_6, KC_ENT , _______,
-      _______, UNDO   , CUT    , COPY   , PASTE  , _______, _______, _______, _______, TG(_NUM), DE_EQL , DE_1, DE_2, DE_3, DE_ASTR, _______,
-                                 _______, _______, _______, _______, _______, _______, DE_0, _______, _______, _______
+      _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP  , KC_END  , CW_TOGG, _______,
+      _______, OS_GUI , OS_ALT , OS_SFT , OS_CTL , _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, KC_TAB , _______,
+      _______, UNDO   , CUT    , COPY   , PASTE  , _______, _______, _______, _______, _______, KC_LGUI, KC_BSPC, KC_ESC , KC_TAB  , KC_DEL , _______,
+                                 _______, _______, _______, _______ , _______, _______, KC_ENT,  _______, _______, _______
     ),
 
     [_SYM] = LAYOUT(
-     _______ , DE_DEG , DE_PLUS, DE_LCBR, DE_RCBR, DE_AT  ,                                     DE_ACUT, DE_LABK, DE_RABK, DE_SECT, DE_EURO, _______,
-     _______ , DE_CIRC, DE_EQL , DE_LPRN, DE_RPRN, DE_PERC,                                     KC_CIRC, DE_SLSH, DE_BSLS, DE_HASH, DE_DLR , _______,
-     _______ , DE_ASTR, DE_MINS, DE_LBRC, DE_RBRC, DE_AMPR, _______, _______, _______, _______, DE_GRV , DE_TILD, DE_PIPE, DE_QUES, DE_EXLM, _______,
+     _______ , DE_ASTR, DE_PLUS, DE_LCBR, DE_RCBR, DE_TILD,                                     DE_AMPR, DE_SS  , DE_ODIA, DE_UDIA, DE_ADIA, _______,
+     _______ , DE_BSLS, DE_EQL , DE_LPRN, DE_RPRN, DE_HASH,                                     DE_ACUT, OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
+     _______ , DE_CIRC, DE_MINS, DE_LBRC, DE_RBRC, DE_DLR , _______, _______, _______, _______, DE_PIPE, DE_LABK, DE_RABK, DE_QUES, DE_EXLM, _______,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
+    [_NUM] = LAYOUT(
+      _______, DE_DOT , DE_9, DE_8, DE_7, DE_PLUS,                                     _______, DE_ASTR, DE_PERC, DE_EURO, DE_SUP2, _______,
+      _______, DE_EQL , DE_3, DE_2, DE_1, DE_0   ,                                     DE_GRV , OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
+      _______, DE_COMM, DE_6, DE_5, DE_4, DE_MINS, _______, _______, _______, _______, _______, DE_SLSH, DE_AT  , DE_MICR, DE_SECT, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -126,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
-    case NUM:
+    case SYM:
     case NAV:
         return true;
     default:
@@ -176,20 +169,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case NAV:
         if (record->event.pressed) {
       	  layer_on(_NAV);
-      	  update_tri_layer(_NAV, _NUM, _SYM);
+      	  update_tri_layer(_NAV, _SYM, _NUM);
         } else {
       	  layer_off(_NAV);
-      	  update_tri_layer(_NAV, _NUM, _SYM);
+      	  update_tri_layer(_NAV, _SYM, _NUM);
         }
         return false;
 	break;
-      case NUM:
+      case SYM:
         if (record->event.pressed) {
-      	  layer_on(_NUM);
-      	  update_tri_layer(_NAV, _NUM, _SYM);
+      	  layer_on(_SYM);
+      	  update_tri_layer(_NAV, _SYM, _NUM);
         } else {
-      	  layer_off(_NUM);
-      	  update_tri_layer(_NAV, _NUM, _SYM);
+      	  layer_off(_SYM);
+      	  update_tri_layer(_NAV, _SYM, _NUM);
         }
         return false;
 	break;
