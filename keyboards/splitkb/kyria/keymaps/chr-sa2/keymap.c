@@ -6,8 +6,8 @@ enum layers {
     _CRTN = 0,
     _QWERTY,
     _NAV,
-    _NUM,
     _SYM,
+    _NUM,
     _FUNCTION,
     _ADJUST,
 };
@@ -20,6 +20,7 @@ enum keycodes {
     OS_ALT,
     SYM,
     NAV,
+    NUM,
 };
 
 // Aliases for readability
@@ -76,17 +77,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______, _______, _______, _______ , _______, _______, KC_ENT,  _______, _______, _______
     ),
 
+    [_SYM] = LAYOUT(
+     _______ , DE_ASTR, DE_PLUS, DE_LCBR, DE_RCBR, DE_TILD,                                     DE_AMPR, DE_SS  , DE_ODIA, DE_UDIA, DE_ADIA, _______,
+     _______ , DE_BSLS, DE_EQL , DE_LPRN, DE_RPRN, DE_HASH,                                     DE_ACUT, OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
+     _______ , DE_CIRC, DE_MINS, DE_LBRC, DE_RBRC, DE_DLR , _______, _______, _______, _______, DE_PIPE, DE_LABK, DE_RABK, DE_QUES, DE_EXLM, _______,
+                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+    ),
+
     [_NUM] = LAYOUT(
       _______, DE_DOT , DE_9, DE_8, DE_7, DE_PLUS,                                     _______, DE_ASTR, DE_PERC, DE_EURO, DE_SUP2, _______,
       _______, DE_EQL , DE_3, DE_2, DE_1, DE_0   ,                                     DE_GRV , OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
       _______, DE_COMM, DE_6, DE_5, DE_4, DE_MINS, _______, _______, _______, _______, _______, DE_SLSH, DE_AT  , DE_MICR, DE_SECT, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-    ),
-
-    [_SYM] = LAYOUT(
-     _______ , DE_ASTR, DE_PLUS, DE_LCBR, DE_RCBR, DE_HASH,                                     DE_AMPR, DE_SS  , DE_ODIA, DE_UDIA, DE_ADIA, _______,
-     _______ , DE_CIRC, DE_EQL , DE_LPRN, DE_RPRN, DE_DLR ,                                     DE_ACUT, OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
-     _______ , DE_BSLS, DE_MINS, DE_LBRC, DE_RBRC, DE_TILD, _______, _______, _______, _______, DE_PIPE, DE_LABK, DE_RABK, DE_QUES, DE_EXLM, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
