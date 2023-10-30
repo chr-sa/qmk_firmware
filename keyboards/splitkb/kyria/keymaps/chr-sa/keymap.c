@@ -48,9 +48,9 @@ enum keycodes {
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29) \
     LAYOUT( \
-      KC_TAB , K00, K01, K02, K03, K04,                                      K05, K06, K07, K08, K09, KC_BSPC, \
-      KC_ESC , K10, K11, K12, K13, K14,                                      K15, K16, K17, K18, K19, KC_ENT , \
-      KC_LSFT, K20, K21, K22, K23, K24, _______,  _______, _______, _______, K25, K26, K27, K28, K29, KC_RSFT, \
+      KC_TAB , K00, K01, K02, K03, K04,                                        K05, K06, K07, K08, K09, KC_BSPC, \
+      KC_ESC , K10, K11, K12, K13, K14,                                        K15, K16, K17, K18, K19, KC_ENT , \
+      KC_LSFT, K20, K21, K22, K23, K24, TG(_SYM),  _______, _______, TG(_NAV), K25, K26, K27, K28, K29, KC_RSFT, \
                     ADJUST, KC_LGUI, NAV, KC_SPC, KC_BSPC, NUM, OSS, SYM, KC_RGUI, KC_APP \
     )
 
@@ -71,22 +71,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_NAV] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                     KC_PGUP, KC_HOME, KC_UP  , KC_END  , CW_TOGG, _______,
-      _______, OS_GUI , OS_ALT , OS_SFT , OS_CTL , _______,                                     KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, KC_TAB , _______,
-      _______, UNDO   , CUT    , COPY   , PASTE  , _______, _______, _______, _______, _______, KC_LGUI, KC_BSPC, KC_ESC , KC_TAB  , KC_DEL , _______,
+      _______, _______, _______, _______, _______, _______,                                      KC_PGUP, KC_HOME, KC_UP  , KC_END  , CW_TOGG, _______,
+      _______, OS_GUI , OS_ALT , OS_SFT , OS_CTL , _______,                                      KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, KC_ESC , _______,
+      _______, UNDO   , CUT    , COPY   , PASTE  , _______, _______, _______, _______, TG(_NAV), KC_LGUI, KC_BSPC, KC_ESC , KC_TAB  , KC_DEL , _______,
                                  _______, _______, _______, _______ , _______, _______, KC_ENT,  _______, _______, _______
     ),
 
     [_SYM] = LAYOUT(
-     _______ , DE_ASTR, DE_PLUS, DE_LCBR, DE_RCBR, DE_TILD,                                     DE_AMPR, DE_SS  , DE_ODIA, DE_UDIA, DE_ADIA, _______,
-     _______ , DE_BSLS, DE_EQL , DE_LPRN, DE_RPRN, DE_HASH,                                     DE_ACUT, OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
-     _______ , DE_CIRC, DE_MINS, DE_LBRC, DE_RBRC, DE_DLR , _______, _______, _______, _______, DE_PIPE, DE_LABK, DE_RABK, DE_QUES, DE_EXLM, _______,
+     _______ , DE_ASTR, DE_PLUS, DE_LCBR, DE_RCBR, DE_TILD,                                      DE_AMPR, DE_SS  , DE_ODIA, DE_UDIA, DE_ADIA, _______,
+     _______ , DE_BSLS, DE_EQL , DE_LPRN, DE_RPRN, DE_HASH,                                      DE_GRV , OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
+     _______ , DE_CIRC, DE_MINS, DE_LBRC, DE_RBRC, DE_DLR , TG(_SYM), _______, _______, _______, DE_PIPE, DE_LABK, DE_RABK, DE_QUES, DE_EXLM, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
     [_NUM] = LAYOUT(
       _______, DE_DOT , DE_9, DE_8, DE_7, DE_PLUS,                                     _______, DE_ASTR, DE_PERC, DE_EURO, DE_SUP2, _______,
-      _______, DE_EQL , DE_3, DE_2, DE_1, DE_0   ,                                     DE_GRV , OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
+      _______, DE_0   , DE_3, DE_2, DE_1, DE_EQL ,                                     DE_ACUT, OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
       _______, DE_COMM, DE_6, DE_5, DE_4, DE_MINS, _______, _______, _______, _______, _______, DE_SLSH, DE_AT  , DE_MICR, DE_SECT, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
