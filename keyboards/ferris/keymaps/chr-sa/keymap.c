@@ -110,6 +110,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*     return update_tri_layer_state(state, _NAV, _NUM, _SYM); */
 /* } */
 
+void keyboard_pre_init_user(void) {
+  // Set our LED pin as output
+  setPinOutput(24);
+  // Turn the LED off
+  // (Due to technical reasons, high is off and low is on)
+  writePinHigh(24);
+}
+
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
     case SYM:
