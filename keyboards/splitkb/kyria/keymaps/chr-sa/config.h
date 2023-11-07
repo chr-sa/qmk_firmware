@@ -15,6 +15,7 @@
  */
 
 #pragma once
+#define EE_HANDS
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_EFFECT_BREATHING
