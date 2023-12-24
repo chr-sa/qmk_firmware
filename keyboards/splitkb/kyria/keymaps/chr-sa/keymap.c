@@ -85,10 +85,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_NUM] = LAYOUT(
-      _______, DE_DOT , DE_9, DE_8, DE_7, DE_PLUS,                                     _______, DE_ASTR, DE_PERC, DE_EURO, DE_SUP2, _______,
-      _______, DE_0   , DE_3, DE_2, DE_1, DE_EQL ,                                     DE_ACUT, OS_CTL , OS_SFT , OS_ALT , OS_GUI , _______,
-      _______, DE_COMM, DE_6, DE_5, DE_4, DE_MINS, _______, _______, _______, _______, _______, DE_SLSH, DE_AT  , DE_MICR, DE_SECT, _______,
-                                 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+	_______, DE_SUP2, DE_EURO, DE_PERC, DE_ASTR, _______,                                     DE_PLUS, DE_7, DE_8, DE_9, DE_DOT , _______,
+	_______, OS_GUI , OS_ALT , OS_SFT , OS_CTL , DE_ACUT,                                     DE_EQL , DE_1, DE_2, DE_3, DE_0   , _______,
+	_______, DE_SECT, DE_MICR, DE_AT  , DE_SLSH, _______, _______, _______, _______, _______, DE_MINS, DE_4, DE_5, DE_6, DE_COMM, _______,
+                               _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 
     [_FUNCTION] = LAYOUT(
@@ -201,3 +201,13 @@ const key_override_t **key_overrides = (const key_override_t *[]){
         &slsh_override,
 	NULL // Null terminate the array of overrides!
 };
+
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (clockwise) {
+        tap_code(KC_PGDN);
+    } else {
+        tap_code(KC_PGUP);
+    }
+    return false;
+}
