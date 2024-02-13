@@ -34,10 +34,12 @@ enum keycodes {
 #define FKEYS    MO(_FUNCTION)
 #define ADJUST   MO(_ADJUST)
 
-#define COPY     C(DE_C)
-#define PASTE    C(DE_V)
-#define CUT      C(DE_X)
-#define UNDO     C(DE_Z)
+#define COPY     LCMD(DE_C)
+#define PASTE    LCMD(DE_V)
+#define CUT      LCMD(DE_X)
+#define UNDO     LCMD(DE_Z)
+#define ATAB     LCMD(KC_TAB)
+#define STAB     SCMD(KC_TAB)
 
 #define DELBS    MT(MOD_LCTL, KC_BSPC)
 #define OSS      OSM(MOD_LSFT)
@@ -71,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_NAV] = LAYOUT(
-      _______, _______, _______, _______, _______,  KC_PGUP, KC_HOME, KC_UP  , KC_END  , CW_TOGG,
+      _______, STAB   , ATAB   , _______, _______,  KC_PGUP, KC_HOME, KC_UP  , KC_END  , CW_TOGG,
       OS_GUI , OS_ALT , OS_SFT , OS_CTL , _______,  KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, KC_ESC ,
       UNDO   , CUT    , COPY   , PASTE  , _______,  KC_LGUI, KC_BSPC, KC_ESC , KC_TAB  , KC_DEL ,
                                   _______, _______, KC_ENT,  _______
