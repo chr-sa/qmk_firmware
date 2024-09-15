@@ -195,13 +195,11 @@ const key_override_t quote_override = ko_make_basic(MOD_MASK_SHIFT, DE_QUOT, DE_
 const key_override_t spc_override = ko_make_basic(MOD_MASK_SHIFT, KC_SPC, DE_UNDS);
 const key_override_t slsh_override = ko_make_basic(MOD_MASK_SHIFT, DE_SLSH, DE_MINS);
 
-const key_override_t **key_overrides = (const key_override_t *[]){
-        &quote_override,
-        &spc_override,
-        &slsh_override,
-	NULL // Null terminate the array of overrides!
+const key_override_t *key_overrides[] = {
+    &quote_override,
+    &spc_override,
+    &slsh_override,
 };
-
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise) {
