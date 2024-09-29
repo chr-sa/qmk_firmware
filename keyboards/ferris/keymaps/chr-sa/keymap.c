@@ -57,7 +57,7 @@ enum keycodes {
 #define UNDO_MAC  C(DE_Z)
 
 #define DELBS    MT(MOD_LCTL, KC_BSPC)
-#define OSS      OSM(KC_LSFT)
+#define OSS      OSM(MOD_LSFT)
 
 // clang-format off
 #define ALPHA_LAYOUT( \
@@ -68,7 +68,7 @@ enum keycodes {
 	    K00, K01, K02, K03, K04,   K05, K06, K07, K08, K09, \
 	    K10, K11, K12, K13, K14,   K15, K16, K17, K18, K19, \
 	    K20, K21, K22, K23, K24,   K25, K26, K27, K28, K29, \
-                        NAV, KC_SPC,   OSS, SYM \
+                    NAV, KC_SPC,   OSS, SYM \
     )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -83,9 +83,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_CRTN_MAC] = LAYOUT(
-     MC_G, MC_L, MC_D, MC_V, MC_Q,  MC_K, MC_F, MC_O   , MC_U   , MC_QUOT,
+     MC_G, MC_L, MC_D, MC_V, MC_Q,  MC_K, MC_F, MC_O   , MC_U   , DE_QUOT,
      MC_C, MC_R, MC_T, MC_N, MC_P,  MC_Y, MC_S, MC_E   , MC_I   , MC_A   ,
-     MC_Z, MC_J, MC_M, MC_H, MC_B,  MC_X, MC_W, MC_SLSH, MC_COMM, MC_DOT ,
+     MC_Z, MC_J, MC_M, MC_H, MC_B,  MC_X, MC_W, DE_SLSH, DE_COMM, DE_DOT ,
                   NAV_MAC, KC_SPC,  OSS, SYM_MAC
     ),
 
