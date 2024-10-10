@@ -6,7 +6,7 @@
 enum layers {
     _CRTN = 0,
     _CRTN_MAC,
-    _QWERTY,
+    _SNUG3,
     _NAV,
     _NAV_MAC,
     _SYM,
@@ -34,7 +34,7 @@ enum keycodes {
 // Aliases for readability
 #define CRTN     DF(_CRTN)
 #define CRTN_MAC DF(_CRTN_MAC)
-#define QWERTY   DF(_QWERTY)
+#define SNUG3    DF(_SNUG3)
 
 #define SYM      MO(_SYM)
 #define SYM_MAC  MO(_SYM_MAC)
@@ -89,24 +89,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   NAV_MAC, KC_SPC,  OSS, SYM_MAC
     ),
 
-    [_QWERTY] = ALPHA_LAYOUT(
-     DE_Q, DE_W, DE_E, DE_R, DE_T, DE_Z, DE_U, DE_I   , DE_O  , DE_P   ,
-     DE_A, DE_S, DE_D, DE_F, DE_G, DE_H, DE_J, DE_K   , DE_L  , DE_SLSH,
-     DE_Y, DE_X, DE_C, DE_V, DE_B, DE_N, DE_M, DE_COMM, DE_DOT, DE_MINS
+    // x l d f b  g m o u q
+    // s r t n p  y c e i a
+    // z j k h v  ' w ; , .
+    [_SNUG3] = LAYOUT(
+     DE_X, DE_L, DE_D, DE_F, DE_B,  DE_G,    DE_M, DE_O   , DE_U   , DE_Q   ,
+     DE_S, DE_R, DE_T, DE_N, DE_P,  DE_Y,    DE_C, DE_E   , DE_I   , DE_A   ,
+     DE_Z, DE_J, DE_K, DE_H, DE_V,  DE_QUOT, DE_W, DE_SLSH, DE_COMM, DE_DOT ,
+                      NAV, KC_SPC,  OSS, SYM
     ),
 
     [_NAV] = LAYOUT(
-      _______, _______, _______, _______, _______,  KC_PGUP, KC_HOME, KC_UP  , KC_END  , CW_TOGG,
-      OS_GUI , OS_ALT , OS_SFT , OS_CTL , _______,  KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, KC_ESC ,
-      UNDO   , CUT    , COPY   , PASTE  , _______,  KC_LGUI, KC_BSPC, KC_ESC , KC_TAB  , KC_DEL ,
-                                 _______, ADJUST , KC_ENT,  _______
+      _______, G(C(KC_LEFT)), KC_LGUI, G(C(KC_RIGHT)), _______,  KC_PGUP, KC_HOME, KC_UP  , KC_END  , CW_TOGG,
+      OS_GUI , OS_ALT       , OS_SFT , OS_CTL        , _______,  KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, KC_ENT ,
+      UNDO   , CUT          , COPY   , PASTE         , _______,  KC_LGUI, KC_BSPC, KC_ESC , KC_TAB  , KC_DEL ,
+                                     _______, ADJUST , KC_ENT,  _______
     ),
 
     [_NAV_MAC] = LAYOUT(
-      _______, _______, _______, _______, _______,  KC_PGUP, KC_HOME, KC_UP  , KC_END  , CW_TOGG,
-      OS_GUI , OS_ALT , OS_SFT , OS_CTL , _______,  KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, KC_ESC ,
-      UNDO   , CUT    , COPY   , PASTE  , _______,  KC_LGUI, KC_BSPC, KC_ESC , KC_TAB  , KC_DEL ,
-                                 _______, ADJUST , KC_ENT,  _______
+      _______, C(KC_LEFT), C(KC_DOWN), C(KC_RIGHT), _______,  KC_PGUP, KC_HOME, KC_UP  , KC_END  , CW_TOGG,
+      OS_GUI , OS_ALT    , OS_SFT    , OS_CTL     , _______,  KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, KC_ENT ,
+      UNDO   , CUT       , COPY      , PASTE      , _______,  KC_LGUI, KC_BSPC, KC_ESC , KC_TAB  , KC_DEL ,
+                                        _______, ADJUST , KC_ENT,  _______
     ),
 
     [_SYM] = LAYOUT(
@@ -146,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_ADJUST] = LAYOUT(
       _______, _______, _______, _______, _______,  _______, _______, _______ , _______,  _______,
-      _______, _______, _______, _______, _______,  _______, CRTN   , CRTN_MAC, _______,  _______,
+      _______, _______, _______, _______, _______,  _______, CRTN   , CRTN_MAC, SNUG3  ,  _______,
       _______, _______, _______, _______, _______,  _______, _______, _______ , _______,  _______,
                                  _______, _______,  _______, _______
     ),
@@ -275,9 +279,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case QWERTY:
+        case SNUG3:
             if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
+                set_single_persistent_default_layer(_SNUG3);
             }
             return false;
             break;
