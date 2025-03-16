@@ -89,13 +89,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                   NAV_MAC, KC_SPC,  OSS, SYM_MAC
     ),
 
-    // x l d f b  g m o u q
-    // s r t n p  y c e i a
-    // z j k h v  ' w ; , .
+    // f l d v q y m o u '
+    // s r t n b g c e i a
+    // x j k h p z w / , .
     [_SNUG3] = LAYOUT(
-     DE_X, DE_L, DE_D, DE_F, DE_B,  DE_G,    DE_M, DE_O   , DE_U   , DE_Q   ,
-     DE_S, DE_R, DE_T, DE_N, DE_P,  DE_Y,    DE_C, DE_E   , DE_I   , DE_A   ,
-     DE_Z, DE_J, DE_K, DE_H, DE_V,  DE_QUOT, DE_W, DE_SLSH, DE_COMM, DE_DOT ,
+     DE_F, DE_L, DE_D, DE_V, DE_Q,  DE_Y, DE_M, DE_O   , DE_U   , DE_QUOT,
+     DE_S, DE_R, DE_T, DE_N, DE_B,  DE_G, DE_C, DE_E   , DE_I   , DE_A   ,
+     DE_X, DE_J, DE_K, DE_H, DE_P,  DE_Z, DE_W, DE_SLSH, DE_COMM, DE_DOT ,
                       NAV, KC_SPC,  OSS, SYM
     ),
 

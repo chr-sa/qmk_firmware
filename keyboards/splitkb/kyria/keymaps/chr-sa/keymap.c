@@ -4,6 +4,7 @@
 
 enum layers {
     _CRTN = 0,
+    _SNUG3,
     _QWERTY,
     _NAV,
     _SYM,
@@ -24,6 +25,7 @@ enum keycodes {
 };
 
 // Aliases for readability
+#define SNUG3    DF(_SNUG3)
 #define CRTN     DF(_CRTN)
 #define QWERTY   DF(_QWERTY)
 
@@ -63,6 +65,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      DE_C, DE_R, DE_T, DE_N, DE_P, DE_Y, DE_S, DE_E   , DE_I   , DE_A   ,
      DE_Z, DE_J, DE_M, DE_H, DE_B, DE_X, DE_W, DE_SLSH, DE_COMM, DE_DOT
     ),
+    /* x l d f b  g m o u q */
+    /* s r t n p  y c e i a */
+    /* z j k h v  ' w ; , . */
+    [_SNUG3] = ALPHA_LAYOUT(
+     DE_X, DE_L, DE_D, DE_F, DE_B, DE_G   , DE_M, DE_O   , DE_U   , DE_Q  ,
+     DE_S, DE_R, DE_T, DE_N, DE_P, DE_Y   , DE_C, DE_E   , DE_I   , DE_A  ,
+     DE_Z, DE_J, DE_K, DE_H, DE_V, DE_QUOT, DE_W, DE_SLSH, DE_COMM, DE_DOT
+    ),
 
     [_QWERTY] = ALPHA_LAYOUT(
      DE_Q, DE_W, DE_E, DE_R, DE_T, DE_Z, DE_U, DE_I   , DE_O  , DE_P   ,
@@ -100,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_ADJUST] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                    _______, _______, _______, _______,  _______, _______,
-      _______, _______, _______,  QWERTY , CRTN   , _______,                                    _______, CG_TOGG, _______, AC_TOGG,  _______, _______,
+      _______, _______, SNUG3,  QWERTY , CRTN   , _______,                                    _______, CG_TOGG, _______, AC_TOGG,  _______, _______,
       _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, _______, _______, _______,  _______, _______,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
