@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap_german.h"
 #include "mac_keymap.h"
+/* https://github.com/daliusd/qmk_firmware/tree/flow/keyboards/a_dux/keymaps/daliusd */
 #include "flow.h"
 
 enum layers {
